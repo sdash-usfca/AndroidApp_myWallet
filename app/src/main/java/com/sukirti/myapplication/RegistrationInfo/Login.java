@@ -1,6 +1,7 @@
 package com.sukirti.myapplication.RegistrationInfo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,8 @@ public class Login extends Activity implements View.OnClickListener {
     EditText userName;
     EditText password;
     Logger logger;
-    TextView loginFailText;
+    TextView loginFailText,registerLink;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +30,29 @@ public class Login extends Activity implements View.OnClickListener {
         password = (EditText) findViewById(R.id.password);
         login  = (Button) findViewById(R.id.login);
         loginFailText = (TextView) findViewById(R.id.loginFailResult);
+        registerLink = (TextView) findViewById(R.id.registerLink);
         login.setOnClickListener(this);
+        registerLink.setOnClickListener(this);
 
 
     }
 
     @Override
     public void onClick(View v) {
-        logger.info(String.valueOf(R.string.string_loginFailedText));
-        loginFailText.setText(R.string.string_loginFailedText);
+        switch (v.getId()){
+            case R.id.login:
+                logger.info(String.valueOf(R.string.string_loginFailedText));
+                loginFailText.setText(R.string.string_loginFailedText);
+                break;
+            case R.id.registerLink:
+                //TODO need to make this activity a fragment
+                startActivity(new Intent(this,Registration.class));
+                break;
+
+            default:
+                System.out.println("Default");
+                break;
+        }
+
     }
 }
